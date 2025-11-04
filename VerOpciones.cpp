@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int VerOpciones()
+int VerOpciones(int opcion)
 {
     cout << "Cargar lote de marcas - 1" << endl;
     cout << "Cargar lote de productos - 2"<< endl;
@@ -12,5 +12,5 @@ int VerOpciones()
     cout << "Salir - 0"<< endl;
 
     cin >> opcion;
-    return 0;
+    return opcion;
 };

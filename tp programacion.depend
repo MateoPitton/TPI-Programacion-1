@@ -1,7 +1,33 @@
 # depslib dependency file v1.0
-1762013831 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\veropciones.cpp
+1762272943 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\veropciones.cpp
 	<iostream>
 
-1762014552 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\opcionesswitch.cpp
+1762284294 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\opcionesswitch.cpp
+	<iostream>
+	"LoteMarca.h"
+
+1762272912 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\main.cpp
+	<iostream>
+	"menu.h"
+
+1762017630 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\menu.h
+
+1762279047 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\menu.cpp
+	<iostream>
+	"VerOpciones.h"
+	"OpcionesSwitch.h"
+
+1762272764 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\veropciones.h
+
+1762279083 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\opcionesswitch.h
+	<string>
+
+1762284186 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\lotemarca.cpp
+	<iostream>
+
+1762283932 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\lotemarca.h
+	<string>
+
+1762284651 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\loteproductos.cpp
 	<iostream>
 

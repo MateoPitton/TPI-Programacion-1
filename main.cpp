@@ -4,8 +4,7 @@ using namespace std;
 #include "menu.h"
 int main()
 {
-    void menu()
-    {
-    }
+    menu();
+
     return 0;
 }
