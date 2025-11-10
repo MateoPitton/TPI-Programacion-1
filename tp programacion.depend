@@ -2,15 +2,16 @@
 1762272943 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\veropciones.cpp
 	<iostream>
 
-1762284294 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\opcionesswitch.cpp
+1762284689 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\opcionesswitch.cpp
 	<iostream>
 	"LoteMarca.h"
+	"LoteProductos.h"
 
-1762272912 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\main.cpp
+1762618326 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\main.cpp
 	<iostream>
-	"menu.h"
+	"funciones.h"
 
-1762017630 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\menu.h
+1762618246 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\menu.h
 
 1762279047 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\menu.cpp
 	<iostream>
@@ -30,4 +31,17 @@
 
 1762284651 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\loteproductos.cpp
 	<iostream>
+
+1762284662 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\loteproductos.h
+	<string>
+
+1762758791 source:c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\funciones.cpp
+	<iostream>
+	"struct.h"
+
+1762753529 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\funciones.h
+	<string>
+	"struct.h"
+
+1762758912 c:\users\mateo\desktop\juegos\t-t\utn\programacion 1\tpi\tp programacion\struct.h
 

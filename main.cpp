@@ -1,7 +1,7 @@
 
 #include <iostream>
 using namespace std;
-#include "menu.h"
+#include "funciones.h"
 int main()
 {
     menu();
