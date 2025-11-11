@@ -12,4 +12,6 @@ void LoteProductos(Productos VProductos[20]);
 void LotePago(FPago VPago[5], bool CodigoRepetido[5]);
 int IndiceMarca(int CodigoBuscado, Marcas VMarca[10]);
 int IndiceProductos(int CodigoBuscado, Productos VProductos[20]);
+
 #endif // FUNCIONES_H_INCLUDED
+

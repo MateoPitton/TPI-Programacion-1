@@ -2,127 +2,128 @@
 #include "struct.h"
 using namespace std;
 /*
-111
-v
-10
-9
-100
-1
-222
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
-111
-v
-10
-9
-100
-1
 
+---------------------------------------
+313
+coca
+100
+90
+100
+1
+421
+papitas
+200
+80
+100
+2
+345
+café
+300
+200
+100
+3
+123
+wqe
+430
+40
+100
+4
+124
+wqe
+191
+73
+100
+5
+432
+wqe
+918
+74
+100
+6
+634
+wqe
+400
+95
+100
+7
+120
+wqe
+375
+97
+100
+8
+123
+wqe
+326
+63
+100
+9
+111
+wqe
+529
+80
+100
+10
+111
+wqe
+834
+70
+100
+2
+111
+wqe
+902
+17
+100
+3
+111
+wqe
+331
+90
+100
+1
+111
+wqe
+973
+60
+100
+2
+111
+wqe
+615
+81
+100
+3
+111
+wqe
+983
+65
+100
+4
+111
+wqe
+664
+66
+100
+5
+111
+wqe
+448
+80
+100
+6
+111
+wqe
+165
+45
+100
+7
+111
+wqe
+58
+58
+100
+9
 */
 void Recaudacion()
 {
@@ -137,7 +138,7 @@ int IndiceProductos(int CodigoBuscado, Productos VProductos[20])
     {
         if( VProductos[i].CodigoProducto == CodigoBuscado )
         {
-            return i;
+            return i ;
         }
 
     }
@@ -227,7 +228,7 @@ void LoteMarca(Marcas VMarca[10])
         }
         cin.ignore();
         getline(cin, VMarca[i].NombreMarca);
-        while (VMarca[i].NombreMarca. empty())
+        while (VMarca[i].NombreMarca.empty())
         {
             cout <<"ingrese un nombre " << endl;
             getline(cin, VMarca[i].NombreMarca);
@@ -366,11 +367,12 @@ void OpcionesSwitch
             RecaudadoProducto[i].StockRemanente = VProductos[i].StockDisponible;
             RecaudadoProducto[i].TotalRecaudado = 0;
         }
+        cout << "Cargar Nro de compra: " <<endl;
+        cin  >> LVentas.NumeroCompra;
+
 
         do
         {
-            cout << "Cargar Nro de compra: " <<endl;
-            cin  >> LVentas.NumeroCompra;
             cout <<"Cargar codigo de producto: "<< endl;
             cin  >> LVentas.CodigoVenta;
 //------------------------------------------
@@ -397,6 +399,8 @@ void OpcionesSwitch
 
             float TPRecaudado = GProducto * RecaudadoProducto[CodigoBuscadoProductos].CantVendida;
 
+            RecaudadoProducto[CodigoBuscadoProductos].TotalRecaudado = TPRecaudado;
+
             RecaudadoProducto[CodigoBuscadoProductos].NomProducto = VProductos[CodigoBuscadoProductos].NombreProducto;
 
             RecaudadoProducto[CodigoBuscadoProductos].CodProducto = VProductos[CodigoBuscadoProductos].CodigoProducto;
@@ -409,13 +413,9 @@ void OpcionesSwitch
         for(int i = 0; i < 20; i++)
         {
             cout << "cd"<<RecaudadoProducto[i].CodProducto<< endl;
-            system("pause");
             cout << "np"<<RecaudadoProducto[i].NomProducto << endl;
-            system("pause");
             cout << "tr"<<RecaudadoProducto[i].TotalRecaudado << endl;
-            system("pause");
             cout << "cv"<<RecaudadoProducto[i].CantVendida << endl;
-            system("pause");
             cout << "sr"<<RecaudadoProducto[i].StockRemanente << endl;
             system("pause");
         };
