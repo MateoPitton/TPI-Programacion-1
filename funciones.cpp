@@ -125,10 +125,21 @@ wqe
 100
 9
 */
-void Recaudacion()
+void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20])
 {
-    /*VProductos: int CodigoProducto; string NombreProducto; float PrecioVenta; float PrecioCompra; int StockDisponible; int CodigoMarca;*/
-
+    for(int i = 0; i < 20; i++)
+        {
+            int ProductosOrdenados = OrdenProductos[i];
+            if (RecaudadoProducto[ProductosOrdenados].CantVendida > 0)
+            {
+                cout << "cd"<<RecaudadoProducto[ProductosOrdenados].CodProducto<< endl;
+                cout << "np"<<RecaudadoProducto[ProductosOrdenados].NomProducto << endl;
+                cout << "tr"<<RecaudadoProducto[ProductosOrdenados].TotalRecaudado << endl;
+                cout << "cv"<<RecaudadoProducto[ProductosOrdenados].CantVendida << endl;
+                cout << "sr"<<RecaudadoProducto[ProductosOrdenados].StockRemanente << endl;
+            }
+        };
+        system("pause");
 }
 //-----------------------------------------------------------------------//
 int IndiceProductos(int CodigoBuscado, Productos VProductos[20])
@@ -142,7 +153,7 @@ int IndiceProductos(int CodigoBuscado, Productos VProductos[20])
         }
 
     }
-    return 0;
+    return -2;
 
 }
 //-----------------------------------------------------------------------//
@@ -159,24 +170,97 @@ int IndiceMarca(int CodigoBuscado, Marcas VMarca[10])
     return 0;
 }
 //-----------------------------------------------------------------------//
-void LoteVentas(Ventas LVentas)/*LVentas: int NumeroCompra; int CodigoVenta; string FormaPago; int CantidadVendida; int CodigoCliente; int DiaVenta;*/
+int VProductosOrdenados(RecaudacionProductos RecaudadoProducto[20],int OrdenProductos[20])
 {
+    for (int i=0; i<20; i++)
+    {
+        OrdenProductos[i] = i;
+    }
+    for (int x = 0; x<20; x++)
+    {
+        for (int i=0; i<20; i++)
+        {
 
-//-----------------
-    cout <<"Cargar codigo de producto: "<< endl;
-    cin  >> LVentas.CodigoVenta;
+            if (RecaudadoProducto[i].CantVendida < RecaudadoProducto[i+1].CantVendida)
+            {
+                for(int i=0; i<19; i++)
+                {
+                    int aux = OrdenProductos[i];
+                    OrdenProductos[i]= OrdenProductos[x];
+                    OrdenProductos[x] = aux;
+                }
+            }
+        }
+    }
+
+}
+//-----------------------------------------------------------------------//
+void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProductos[20],Ventas LVentas)
+{
+for(int i = 0; i < 20; i++)
+        {
+            RecaudadoProducto[i].NomProducto = VProductos[i].NombreProducto;
+            RecaudadoProducto[i].CodProducto = VProductos[i].CodigoProducto;
+            RecaudadoProducto[i].CantVendida = 0;
+            RecaudadoProducto[i].StockRemanente = VProductos[i].StockDisponible;
+            RecaudadoProducto[i].TotalRecaudado = 0;
+        }
+
+        cout << "Cargar Nro de compra: " <<endl;
+        cin  >> LVentas.NumeroCompra;
+        do
+        {
+            cout <<"Cargar codigo de producto: "<< endl;
+            cin  >> LVentas.CodigoVenta;
 //------------------------------------------
-    cout <<"Cargar forma de pago: "<<endl;
-    cin  >>LVentas.FormaPago;
+            cout <<"Cargar forma de pago: "<<endl;
+            cin  >>LVentas.FormaPago;
 //------------------------------------------
-    cout <<"Cargar cantidad vendida: "<<endl;
-    cin  >>LVentas.CantidadVendida;
+            cout <<"Cargar cantidad vendida: "<<endl;
+            cin  >>LVentas.CantidadVendida;
 //------------------------------------------
-    cout <<"Cargar codigo de cliente(1 a 50): "<<endl;
-    cin  >>LVentas.CodigoCliente;
+            cout <<"Cargar codigo de cliente(1 a 50): "<<endl;
+            cin  >>LVentas.CodigoCliente;
 //------------------------------------------
-    cout <<"Cargar dia de Venta(1 a 30): "<<endl;
-    cin  >>LVentas.DiaVenta;
+            cout <<"Cargar dia de Venta(1 a 30): "<<endl;
+            cin  >>LVentas.DiaVenta;
+
+
+            int CodigoBuscado = LVentas.CodigoVenta;
+            int CodigoBuscadoProductos = IndiceProductos(CodigoBuscado, VProductos);
+
+            if (CodigoBuscadoProductos == -2)
+            {
+                cout << "Codigo de producto inexistente. Venta no registrada." << endl;
+                system("pause");
+            }
+            else
+            {
+
+                RecaudadoProducto[CodigoBuscadoProductos].StockRemanente -= LVentas.CantidadVendida;
+
+                float GProducto = VProductos[CodigoBuscadoProductos].PrecioVenta - VProductos[CodigoBuscadoProductos].PrecioCompra;
+
+                RecaudadoProducto[CodigoBuscadoProductos].CantVendida += LVentas.CantidadVendida;
+
+                RecaudadoProducto[CodigoBuscadoProductos].TotalRecaudado += GProducto * LVentas.CantidadVendida;
+            }
+
+
+            /*float TPRecaudado = GProducto * RecaudadoProducto[CodigoBuscadoProductos].CantVendida;*/
+
+            /*RecaudadoProducto[CodigoBuscadoProductos].TotalRecaudado = TPRecaudado;*/
+
+            RecaudadoProducto[CodigoBuscadoProductos].NomProducto = VProductos[CodigoBuscadoProductos].NombreProducto;
+
+            RecaudadoProducto[CodigoBuscadoProductos].CodProducto = VProductos[CodigoBuscadoProductos].CodigoProducto;
+
+            cout << "Cargar Nro de compra: " <<endl;
+            cin  >> LVentas.NumeroCompra;
+
+        }
+        while(LVentas.NumeroCompra != 0);
+
 }
 //-----------------------------------------------------------------------//
 void LotePago(FPago VPago[5], bool CodigoRepetido[5])
@@ -330,7 +414,7 @@ void OpcionesSwitch
 
 //---------------------------PROCESOS----------------------------------//
 
- RecaudacionProductos RecaudadoProducto[20]
+ RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20]
 )
 {
     switch(opcion)
@@ -357,71 +441,12 @@ void OpcionesSwitch
         LotePago(VPago, CodigoRepetido);
         break;
     case 4:
-        /*LVentas: int NumeroCompra; int CodigoVenta; string FormaPago; int CantidadVendida; int CodigoCliente; int DiaVenta;*/
 
-        for(int i = 0; i < 20; i++)
-        {
-            RecaudadoProducto[i].NomProducto = VProductos[i].NombreProducto;
-            RecaudadoProducto[i].CodProducto = VProductos[i].CodigoProducto;
-            RecaudadoProducto[i].CantVendida = 0;
-            RecaudadoProducto[i].StockRemanente = VProductos[i].StockDisponible;
-            RecaudadoProducto[i].TotalRecaudado = 0;
-        }
-        cout << "Cargar Nro de compra: " <<endl;
-        cin  >> LVentas.NumeroCompra;
-
-
-        do
-        {
-            cout <<"Cargar codigo de producto: "<< endl;
-            cin  >> LVentas.CodigoVenta;
-//------------------------------------------
-            cout <<"Cargar forma de pago: "<<endl;
-            cin  >>LVentas.FormaPago;
-//------------------------------------------
-            cout <<"Cargar cantidad vendida: "<<endl;
-            cin  >>LVentas.CantidadVendida;
-//------------------------------------------
-            cout <<"Cargar codigo de cliente(1 a 50): "<<endl;
-            cin  >>LVentas.CodigoCliente;
-//------------------------------------------
-            cout <<"Cargar dia de Venta(1 a 30): "<<endl;
-            cin  >>LVentas.DiaVenta;
-
-            int CodigoBuscado = LVentas.CodigoVenta;
-            int CodigoBuscadoProductos = IndiceProductos(CodigoBuscado, VProductos);
-
-            RecaudadoProducto[CodigoBuscadoProductos].StockRemanente -= LVentas.CantidadVendida;
-
-            float GProducto = VProductos[CodigoBuscadoProductos].PrecioVenta - VProductos[CodigoBuscadoProductos].PrecioCompra;
-
-            RecaudadoProducto[CodigoBuscadoProductos].CantVendida += LVentas.CantidadVendida;
-
-            float TPRecaudado = GProducto * RecaudadoProducto[CodigoBuscadoProductos].CantVendida;
-
-            RecaudadoProducto[CodigoBuscadoProductos].TotalRecaudado = TPRecaudado;
-
-            RecaudadoProducto[CodigoBuscadoProductos].NomProducto = VProductos[CodigoBuscadoProductos].NombreProducto;
-
-            RecaudadoProducto[CodigoBuscadoProductos].CodProducto = VProductos[CodigoBuscadoProductos].CodigoProducto;
-
-            cout << "Cargar Nro de compra: " <<endl;
-            cin  >> LVentas.NumeroCompra;
-        }
-        while(LVentas.NumeroCompra != 0);
-
-        for(int i = 0; i < 20; i++)
-        {
-            cout << "cd"<<RecaudadoProducto[i].CodProducto<< endl;
-            cout << "np"<<RecaudadoProducto[i].NomProducto << endl;
-            cout << "tr"<<RecaudadoProducto[i].TotalRecaudado << endl;
-            cout << "cv"<<RecaudadoProducto[i].CantVendida << endl;
-            cout << "sr"<<RecaudadoProducto[i].StockRemanente << endl;
-            system("pause");
-        };
-
+        ProcesoProductos(RecaudadoProducto, VProductos, LVentas);
+        VProductosOrdenados(RecaudadoProducto, OrdenProductos);
         break;
     case 5:
+        Recaudacion(RecaudadoProducto, OrdenProductos);
         break;
     case 0:
         salir = true;
@@ -471,12 +496,14 @@ void menu()
     Ventas LVentas;
     //------------------------PROCESOS------------------------------------//
     RecaudacionProductos RecaudadoProducto[20];
+    int OrdenProductos[20];
+
     do
     {
         system("cls");
         cout << "menu principal: elegir una opcion para continuar." << endl<< endl;
         opcion = VerOpciones(opcion);
-        OpcionesSwitch(opcion, salir, BMarca, VMarca, VProductos, VPago, CodigoRepetido, LVentas, RecaudadoProducto);
+        OpcionesSwitch(opcion, salir, BMarca, VMarca, VProductos, VPago, CodigoRepetido, LVentas, RecaudadoProducto,OrdenProductos);
     }
     while(salir!= true);
 }
