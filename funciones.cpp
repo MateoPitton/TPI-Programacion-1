@@ -1,200 +1,7 @@
 #include<iostream>
 #include "struct.h"
 using namespace std;
-/*
-1
-1QWE
-2QWE
-3WQE
-4QWE
-5QWE
-6QWE
-7QWE
-8QWE
-9QWE
-10QWE
-2
-313
-coca
-100
-90
-100
-1
-421
-papitas
-200
-80
-100
-2
-345
-café
-300
-200
-100
-3
-943
-tostadas
-430
-40
-100
-4
-124
-sanguche
-191
-73
-100
-5
-432
-plomo
-918
-74
-100
-6
-634
-cobre
-400
-95
-100
-7
-120
-fluor
-375
-97
-100
-8
-123
-argon
-326
-63
-100
-9
-111
-hidrogeno
-529
-80
-100
-10
-212
-bronce
-834
-70
-100
-2
-213
-wolframio
-902
-17
-100
-3
-214
-uranio
-331
-90
-100
-1
-215
-potasio
-973
-60
-100
-2
-216
-fluor
-615
-81
-100
-3
-223
-trompo
-983
-65
-100
-4
-224
-rombo
-664
-66
-100
-5
-221
-horno
-448
-80
-100
-6
-222
-cromo
-165
-65
-100
-7
-278
-mono
-58
-48
-100
-9
-3
-MP
-MercadoPago
-10
-EF
-Efectivo
--10
-TR
-Transferencia
-0
-TC
-Crédito
-10
-CT
-Criptomoneda
-0
-4
-1
-313
-EF
-20
-1
-1
-2
-421
-EF
-10
-2
-2
-3
-345
-MP
-30
-3
-3
-4
-222
-MP
-55
-4
-4
-5
-313
-TR
-40
-1
-5
-6
-313
-MP
-10
-1
-6
-7
-278
-TC
-30
-7
-7
-0
-*/
+
 void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20], float PorcentajeVentas[5], FPago VPago[5])
 {
     for(int i = 0; i < 20; i++)
@@ -202,10 +9,11 @@ void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[
         int ProductosOrdenados = OrdenProductos[i];
         if (RecaudadoProducto[ProductosOrdenados].CantVendida > 0)
         {
-            cout << "Codigo de producto: "<<RecaudadoProducto[ProductosOrdenados].CodProducto<< endl;
-            cout << "Nombre del producto: "<<RecaudadoProducto[ProductosOrdenados].NomProducto << endl;
-            cout << "Total recaudado: "<<RecaudadoProducto[ProductosOrdenados].TotalRecaudado << "$" << endl;
-            cout << "Cantidad vendida: "<<RecaudadoProducto[ProductosOrdenados].CantVendida << endl;
+            cout << "*********************************************************************************" << endl;
+            cout << "Codigo de producto: "<<RecaudadoProducto[ProductosOrdenados].CodProducto<< endl<< endl;
+            cout << "Nombre del producto: "<<RecaudadoProducto[ProductosOrdenados].NomProducto << endl<< endl;
+            cout << "Total recaudado: "<<RecaudadoProducto[ProductosOrdenados].TotalRecaudado << "$" << endl<< endl;
+            cout << "Cantidad vendida: "<<RecaudadoProducto[ProductosOrdenados].CantVendida << endl<< endl;
             cout << "Stock remanente: "<<RecaudadoProducto[ProductosOrdenados].StockRemanente << endl;
         }
     }
@@ -235,25 +43,30 @@ void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[
         }
     }
     system("pause");
+    system("cls");
     cout << "Productos que no vendieron: "<< endl;
     for(int i = 0; i < 20; i++)
     {
         int ProductosOrdenados = OrdenProductos[i];
         if (RecaudadoProducto[ProductosOrdenados].CantVendida == 0)
         {
-            cout << "Codigo de producto: "<<RecaudadoProducto[ProductosOrdenados].CodProducto<< endl;
-            cout << "Nombre del producto: "<<RecaudadoProducto[ProductosOrdenados].NomProducto << endl;
+            cout <<"********************************************************************************"<<endl;
+            cout << "Codigo de producto: "<<RecaudadoProducto[ProductosOrdenados].CodProducto<< endl<< endl;
+            cout << "Nombre del producto: "<<RecaudadoProducto[ProductosOrdenados].NomProducto << endl<< endl;
         }
     }
     system("pause");
+    system("cls");
     cout << "Porcentajes: " << endl;
     for (int i = 0; i < 5; i++)
     {
+        cout <<"***********************************************************************"<<endl;
         cout << NombrePagos[i] << " tiene un: " << PorcentajeVentas[i] << " %" << endl;
     }
     system("pause");
+    system("cls");
 }
-IndicePagos(FPago VPago[5],string CodigoBuscadoPagos)
+int IndicePagos(FPago VPago[5],string CodigoBuscadoPagos)
 {
     for(int i = 0; i < 5; i++)
     {
@@ -350,6 +163,7 @@ void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProd
 //------------------------------------------
         cout <<"Cargar dia de Venta(1 a 30): "<<endl;
         cin  >>LVentas.DiaVenta;
+
 //---------------------INDICES-----------------------------------------
 
         int CodigoBuscado = LVentas.CodigoVenta;
