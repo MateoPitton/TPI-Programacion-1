@@ -2,7 +2,7 @@
 #include "struct.h"
 using namespace std;
 
-void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20], float PorcentajeVentas[5], FPago VPago[5])
+void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20], float PorcentajeVentas[5], FPago VPago[5], VPMarcas VentasPorMarca[10])
 {
     for(int i = 0; i < 20; i++)
     {
@@ -57,7 +57,7 @@ void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[
     }
     system("pause");
     system("cls");
-    cout << "Porcentajes: " << endl;
+    cout << "Porcentajes de ventas por forma de pago: " << endl;
     for (int i = 0; i < 5; i++)
     {
         cout <<"***********************************************************************"<<endl;
@@ -65,6 +65,23 @@ void Recaudacion(RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[
     }
     system("pause");
     system("cls");
+    cout <<"Ventas por marca y forma de pago; " << endl;
+
+    for(int i = 0; i < 10; i++)
+    {
+
+        cout << "*********************************************************************************" << endl;
+        cout << "Marca: "<<VentasPorMarca[i].NombreMarca<< endl<< endl;
+        cout << "EF: "<<VentasPorMarca[i].AcuEF << " productos" <<endl<< endl;
+        cout << "MP: "<<VentasPorMarca[i].AcuMP << " productos" << endl<< endl;
+        cout << "TC: "<<VentasPorMarca[i].AcuTC << " productos" <<endl<< endl;
+        cout << "TR: "<<VentasPorMarca[i].AcuTR << " productos" <<endl << endl;
+        cout << "CT: "<<VentasPorMarca[i].AcuCT << " productos" <<endl;
+
+    }
+    system("pause");
+    system("cls");
+
 }
 int IndicePagos(FPago VPago[5],string CodigoBuscadoPagos)
 {
@@ -98,7 +115,7 @@ int IndiceMarca(int CodigoBuscado, Marcas VMarca[10])
     {
         if( VMarca[i].NumeroMarca == CodigoBuscado )
         {
-            return i;
+            return i ;
         }
 
     }
@@ -129,10 +146,20 @@ void VProductosOrdenados(RecaudacionProductos RecaudadoProducto[20],int OrdenPro
 
 }
 //-----------------------------------------------------------------------//
-void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProductos[20],Ventas LVentas, float PorcentajeVentas[5], FPago VPago[5])
+void Procesos(RecaudacionProductos RecaudadoProducto[20],Productos VProductos[20],Ventas LVentas, float PorcentajeVentas[5], FPago VPago[5], VPMarcas VentasPorMarca[10], Marcas VMarca[10])
 {
     float TotalVentas = 0;
     float NroParcialVentas[5] {};
+
+    for(int i = 0; i < 10; i++)
+    {
+        VentasPorMarca[i].NombreMarca = VMarca[i].NombreMarca;
+        VentasPorMarca[i].AcuEF = 0;
+        VentasPorMarca[i].AcuMP = 0;
+        VentasPorMarca[i].AcuTC = 0;
+        VentasPorMarca[i].AcuTR = 0;
+        VentasPorMarca[i].AcuCT = 0;
+    }
 
     for(int i = 0; i < 20; i++)
     {
@@ -171,7 +198,7 @@ void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProd
         int CodigoBuscadoProductos = IndiceProductos(CodigoBuscado, VProductos);
         int CodigoPago = IndicePagos(VPago, CodigoBuscadoPagos);
 
-//-------------------------------TOTAL RECAUDADO DE LOS PRODUCTOS-----------------------------
+//-------------------------------Recaudación por producto-----------------------------
 
         RecaudadoProducto[CodigoBuscadoProductos].StockRemanente -= LVentas.CantidadVendida;
 
@@ -188,7 +215,7 @@ void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProd
         RecaudadoProducto[CodigoBuscadoProductos].NomProducto = VProductos[CodigoBuscadoProductos].NombreProducto;
 
         RecaudadoProducto[CodigoBuscadoProductos].CodProducto = VProductos[CodigoBuscadoProductos].CodigoProducto;
-//-----------------------------PORCENTAJE VENTAS-------------------------------------------------
+//-----------------------------Porcentaje de ventas por forma de pago-------------------------------------------------
         TotalVentas++;
 
         if(LVentas.FormaPago == "EF")
@@ -216,6 +243,35 @@ void ProcesoProductos(RecaudacionProductos RecaudadoProducto[20],Productos VProd
             PorcentajeVentas[i] = NroParcialVentas[i]/TotalVentas * 100;
         }
 
+//-----------------------------Ventas por marca y forma de pago------------------------------------------------------
+
+        for(int i = 0; i< 10; i++)
+        {
+            if(VProductos[CodigoBuscadoProductos].CodigoMarca == VMarca[i].NumeroMarca)
+            {
+                if(LVentas.FormaPago == "MP")
+                {
+                    VentasPorMarca[i].AcuMP += LVentas.CantidadVendida;
+                };
+                if(LVentas.FormaPago == "TR")
+                {
+                    VentasPorMarca[i].AcuTR += LVentas.CantidadVendida;
+                };
+                if(LVentas.FormaPago == "TC")
+                {
+                    VentasPorMarca[i].AcuTC += LVentas.CantidadVendida;
+                };
+                if(LVentas.FormaPago == "CT")
+                {
+                    VentasPorMarca[i].AcuCT += LVentas.CantidadVendida;
+                };
+                if(LVentas.FormaPago == "EF")
+                {
+                    VentasPorMarca[i].AcuEF += LVentas.CantidadVendida;
+                };
+            };
+        }
+        //----------------------------------------------------
 
         cout << "Cargar Nro de compra: " <<endl;
         cin  >> LVentas.NumeroCompra;
@@ -267,13 +323,14 @@ void LoteMarca(Marcas VMarca[10])
 {
     for(int i = 0; i < 10; i++)
     {
-        cout << "Ingrese el numero (1 - 10)y nombre de la marca: "<< endl;
+        cout << "Ingrese el numero (1 - 10): "<< endl;
         cin >> VMarca[i].NumeroMarca;
         while(VMarca[i].NumeroMarca < 0|VMarca[i].NumeroMarca > 10)
         {
             cout <<"ingrese un valor entre el 1 y 10: " << endl;
             cin  >> VMarca[i].NumeroMarca;
         }
+        cout << "ingrese un nombre de marca:" << endl;
         cin.ignore();
         getline(cin, VMarca[i].NombreMarca);
         while (VMarca[i].NombreMarca.empty())
@@ -379,7 +436,9 @@ void OpcionesSwitch
 //---------------------------PROCESOS----------------------------------//
 
  RecaudacionProductos RecaudadoProducto[20], int OrdenProductos[20],
- float PorcentajeVentas[5])
+ float PorcentajeVentas[5],
+ VPMarcas VentasPorMarca[10]
+)
 {
     switch(opcion)
     {
@@ -406,13 +465,13 @@ void OpcionesSwitch
         break;
     case 4:
 //----------------------------PRODUCTOS ORDENADOS------------------------//
-        ProcesoProductos(RecaudadoProducto, VProductos, LVentas, PorcentajeVentas, VPago);
+        Procesos(RecaudadoProducto, VProductos, LVentas, PorcentajeVentas, VPago, VentasPorMarca, VMarca);
         VProductosOrdenados(RecaudadoProducto, OrdenProductos);
 //-----------------------------------------------------------------------//
 
         break;
     case 5:
-        Recaudacion(RecaudadoProducto, OrdenProductos, PorcentajeVentas, VPago);
+        Recaudacion(RecaudadoProducto, OrdenProductos, PorcentajeVentas, VPago, VentasPorMarca);
         break;
     case 0:
         salir = true;
@@ -464,13 +523,14 @@ void menu()
     RecaudacionProductos RecaudadoProducto[20];
     int OrdenProductos[20];
     float PorcentajeVentas[5];
+    VPMarcas VentasPorMarca[10];
 
     do
     {
         system("cls");
         cout << "menu principal: elegir una opcion para continuar." << endl<< endl;
         opcion = VerOpciones(opcion);
-        OpcionesSwitch(opcion, salir, BMarca, VMarca, VProductos, VPago, CodigoRepetido, LVentas, RecaudadoProducto,OrdenProductos, PorcentajeVentas);
+        OpcionesSwitch(opcion, salir, BMarca, VMarca, VProductos, VPago, CodigoRepetido, LVentas, RecaudadoProducto,OrdenProductos, PorcentajeVentas, VentasPorMarca);
     }
     while(salir!= true);
 }

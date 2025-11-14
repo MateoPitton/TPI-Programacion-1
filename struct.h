@@ -39,5 +39,13 @@ float TotalRecaudado;
 int CantVendida;
 int StockRemanente;
 };
+struct VPMarcas{
+string NombreMarca;
+int AcuEF;
+int AcuMP;
+int AcuTR;
+int AcuTC;
+int AcuCT;
+};
 
 #endif // STRUCT_H_INCLUDED
