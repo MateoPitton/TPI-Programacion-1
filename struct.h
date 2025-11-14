@@ -21,7 +21,7 @@ struct FPago
 {
     string CodigoPago;
     string NombrePago;
-    int PorcentajeDoI;/*DoI = Descuento o interes;*/
+    float PorcentajeDoI;/*DoI = Descuento o interes;*/
 };
 struct Ventas{
 int NumeroCompra;
